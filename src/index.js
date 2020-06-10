@@ -42,26 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
     dogForm.addEventListener('submit', e => {
         event.preventDefault();
         if (e.target.id === 'dog-form') {
+            const dogRow = document.querySelector("#table-body > tr:nth-child(1)")
             const name = e.target.name.value
             const breed = e.target.breed.value
             const sex = e.target.sex.value
+            console.log(e.target.parentNode.dataset.id) 
 
-            fetch(`${dogsUrl}/${e.target.id}`, {
-            method: "PATCH",
-            headers: {
-                "content-type": "application/json",
-                "accept": "application/json"
-                },
-                body: JSON.stringify({ 
-                    name: name, 
-                    breed: breed,
-                    sex: sex
-                })
-                })
-                  .then(response => response.json())
-                  .then(dogs => console.log(dogs)
-                  )
-              
+
+  
         }
     } )
 
