@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Baby",
       "breed": "Scottish Deerhound",
-      "sex": "male"
+      "sex": "female"
     },
     {
       "id": 2,
@@ -104,7 +104,7 @@
     },
     {
       "id": 18,
-      "name": "Chance",
+      "name": "Chance the Rapper",
       "breed": "Toy Terrier",
       "sex": "male"
     },
