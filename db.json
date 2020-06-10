@@ -4,11 +4,11 @@
       "id": 1,
       "name": "Baby",
       "breed": "Scottish Deerhound",
-      "sex": "male"
+      "sex": "female"
     },
     {
       "id": 2,
-      "name": "Teddy",
+      "name": "Ted",
       "breed": "Rhodesian Ridgeback",
       "sex": "male"
     },
@@ -16,7 +16,7 @@
       "id": 3,
       "name": "Snickers",
       "breed": "Dachshund",
-      "sex": "male"
+      "sex": "female"
     },
     {
       "id": 4,
@@ -32,7 +32,7 @@
     },
     {
       "id": 6,
-      "name": "Oreo",
+      "name": "Oreos",
       "breed": "English Springer",
       "sex": "male"
     },
@@ -46,7 +46,7 @@
       "id": 8,
       "name": "Chloe",
       "breed": "Dandie Terrier",
-      "sex": "male"
+      "sex": "female"
     },
     {
       "id": 9,
@@ -64,7 +64,7 @@
       "id": 11,
       "name": "Jasper",
       "breed": "Redbone",
-      "sex": "female"
+      "sex": "male"
     },
     {
       "id": 12,

@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const registeredDogs = document.querySelector("#table-body")
 
     function fetchDogs() {
-        console.log("reloading dogs")
         fetch(BASE_URL)
         .then(resp => resp.json())
         .then(json => renderDogs(json))
@@ -16,16 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderDog(dog) {
-        let td = document.querySelector("td")
-
-        if (td) {
-            console.log('editing')
-        }
-        else {  
-            const tr = document.createElement("tr")
-            tr.innerHTML = `<td>${dog.name}</td> <td>${dog.breed}</td> <td>${dog.sex}</td> <td><button data-id=${dog.id}>Edit Dog</button></td>`
-            registeredDogs.append(tr)
-        }
+        const tr = document.createElement("tr")
+        tr.innerHTML = `<td>${dog.name}</td> <td>${dog.breed}</td> <td>${dog.sex}</td> <td><button data-id=${dog.id}>Edit Dog</button></td>`
+        registeredDogs.append(tr)
     }
 
     fetchDogs()
@@ -53,6 +45,16 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     //Edit dog
+    function reFetchDogs(){
+        fetch(BASE_URL)
+        .then(resp => resp.json())
+        .then(json => reRenderDogs(json))
+    }
+
+    function reRenderDogs(dogs){
+        registeredDogs.innerHTML = ``
+        renderDogs(dogs)
+    }
     
     document.addEventListener("submit", (e) => {
         e.preventDefault()
@@ -80,7 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             fetch(`${BASE_URL}/${id}`, configObj)
-            .then(fetchDogs())
+            .then(resp => resp.json())
+            .then(reFetchDogs)
         }
 
     })
