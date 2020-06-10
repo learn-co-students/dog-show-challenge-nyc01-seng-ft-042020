@@ -37,18 +37,37 @@ document.addEventListener('DOMContentLoaded', () => {
         dogForm.name.value = dog.name
         dogForm.breed.value = dog.breed
         dogForm.sex.value = dog.sex
+        dogForm.dataset.id = dog.id
     }
 
     dogForm.addEventListener('submit', e => {
         event.preventDefault();
         if (e.target.id === 'dog-form') {
-            const dogRow = document.querySelector("#table-body > tr:nth-child(1)")
+            const dogRow = document.querySelector("#table-body > tr:nth-child(`${dogForm.dataset.id}`)")(`${dogForm.dataset.id}`)
             const name = e.target.name.value
             const breed = e.target.breed.value
             const sex = e.target.sex.value
-            console.log(e.target.parentNode.dataset.id) 
 
-
+            fetch(`${dogsUrl}/${e.target.dataset.id}`, {
+                method: "PATCH",
+                headers: {
+            "content-type": "application/json",
+            "accept": "application/json"
+             },
+            body: JSON.stringify({     
+                name: name,
+                breed: breed,
+                sex: sex
+            })
+             })
+                .then(response => response.json())
+                .then(dog => {
+                dogRow.innerHTML = `<tr>
+                <td>${dog.name}</td><td>${dog.breed}</td> <td>${dog.sex}</td> 
+                <td><button class='edit' id=${dog.id}>Edit</button></td>
+                </tr>`
+      })
+  
   
         }
     } )
