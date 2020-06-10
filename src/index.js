@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const dogsUrl = "http://localhost:3000/dogs"
     const table = document.querySelector("#table-body")
-    const dogForm = document.querySelector("#dog-form")
+    const dogRow = document.querySelector("#dog-form")
     
 
-
-    function fecthDogs() {
+        function fecthDogs() {
         fetch(dogsUrl)
         .then(resp => resp.json())
         .then(dogs => dogListing(dogs))
@@ -27,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     table.addEventListener('click', (e) =>{
         if (e.target.className === 'edit') {
+            e.preventDefault();
             fetch(`${dogsUrl}/${e.target.id}`)
             .then(resp => resp.json())
             .then(dog => dogInfoForForm(dog)) 
@@ -34,16 +34,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })
     function dogInfoForForm(dog) {
-        dogForm.name.value = dog.name
-        dogForm.breed.value = dog.breed
-        dogForm.sex.value = dog.sex
-        dogForm.dataset.id = dog.id
+        dogRow.name.value = dog.name
+        dogRow.breed.value = dog.breed
+        dogRow.sex.value = dog.sex
+        dogRow.dataset.id = dog.id
     }
 
-    dogForm.addEventListener('submit', e => {
-        event.preventDefault();
-        if (e.target.id === 'dog-form') {
-            const dogRow = document.querySelector("#table-body > tr:nth-child(`${dogForm.dataset.id}`)")(`${dogForm.dataset.id}`)
+    dogRow.addEventListener('submit', e => {
+        e.preventDefault();
+        if (e.target.id === 'dog-form') {  
+            editDog(e)
+        }})
+
+        function editDog(e) {
             const name = e.target.name.value
             const breed = e.target.breed.value
             const sex = e.target.sex.value
@@ -59,18 +62,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 breed: breed,
                 sex: sex
             })
-             })
-                .then(response => response.json())
-                .then(dog => {
-                dogRow.innerHTML = `<tr>
-                <td>${dog.name}</td><td>${dog.breed}</td> <td>${dog.sex}</td> 
-                <td><button class='edit' id=${dog.id}>Edit</button></td>
+             }).then(response => response.json())
+                .then(upDog => freshDog(upDog))
+
+            function freshDog(upDog) {
+                const trDog = document.querySelector(`#table-body > tr:nth-child(${upDog.id})`)
+                trDog.innerHTML = `
+                <tr>
+                <td>${upDog.name}</td><td>${upDog.breed}</td> <td>${upDog.sex}</td> 
+                <td><button class='edit' id=${upDog.id}>Edit</button></td>
                 </tr>`
-      })
-  
-  
+            }
         }
-    } )
 
     fecthDogs()
 })
